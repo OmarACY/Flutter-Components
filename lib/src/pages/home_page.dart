@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:components/src/utils/icon_string_util.dart';
 import 'package:components/src/providers/menu_provider.dart';
+import 'package:components/src/pages/alert_page.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -25,14 +27,14 @@ class HomePage extends StatelessWidget {
       builder: ( context, AsyncSnapshot<List<dynamic>> snapshot ) {
 
          return ListView(
-           children: _listItems( snapshot.data ),
+           children: _listItems( snapshot.data, context ),
          );
 
       },
     );
   }
 
-  List<Widget> _listItems( List<dynamic> data ) {
+  List<Widget> _listItems( List<dynamic> data, BuildContext context ) {
 
     final List<Widget> options = [];
 
@@ -40,9 +42,18 @@ class HomePage extends StatelessWidget {
 
       final widgetTemp = ListTile(
         title: Text( opt['texto'] ),
-        leading: Icon(Icons.verified_user, color: Colors.blue,),
+        leading: getIcon(opt['icon']),
         trailing: Icon(Icons.keyboard_arrow_right),
-        onTap: () {},
+        onTap: () {
+          
+          Navigator.pushNamed(context, opt['ruta']);
+          
+          //final route = MaterialPageRoute(
+          //  builder: ( context ) => AlertPage()
+          //);
+
+          //Navigator.push(context, route);
+        },
       );
 
       options..add(widgetTemp)
