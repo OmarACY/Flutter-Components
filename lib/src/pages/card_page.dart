@@ -11,7 +11,9 @@ class CardPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all( 10.0 ),
         children: <Widget>[
-          _cardType1()
+          _cardType1(),
+          SizedBox(height: 30.0,),
+          _cardType2()
         ],
       ),
     );
@@ -32,6 +34,29 @@ class CardPage extends StatelessWidget {
               FlatButton(onPressed: () {}, child: Text('Cancelar')),
               FlatButton(onPressed: () {}, child: Text('Ok'))
             ],
+          )
+        ],
+      ),
+    );
+  }
+
+  _cardType2() {
+    return Card(
+      child: Column(
+        children: <Widget>[
+          FadeInImage(
+              placeholder: AssetImage('assets/jar-loading.gif'),
+              image: NetworkImage('https://astanatimes.com/wp-content/uploads/2018/01/Part_3.jpeg'),
+              fadeInDuration: Duration(milliseconds: 200),
+              height: 300.0,
+              fit: BoxFit.cover,
+          ),
+          //Image(
+          //  image: NetworkImage('https://astanatimes.com/wp-content/uploads/2018/01/Part_3.jpeg'),
+          //),
+          Container(
+            padding: EdgeInsets.all(10.0),
+            child: Text('Algun texto aleatorio'),
           )
         ],
       ),
