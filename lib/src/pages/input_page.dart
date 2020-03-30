@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -10,6 +11,9 @@ class _InputPageState extends State<InputPage> {
   String _name = '';
   String _email = '';
   String _password = '';
+  String _date = '';
+
+  TextEditingController _inputFieldDateController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +29,8 @@ class _InputPageState extends State<InputPage> {
           _createEmail(),
           Divider(),
           _createPassword(),
+          Divider(),
+          _createDate(context),
           Divider(),
           _createPerson()
         ],
@@ -74,7 +80,7 @@ class _InputPageState extends State<InputPage> {
     );
   }
 
-  _createPassword() {
+  Widget _createPassword() {
     return TextField(
       obscureText: true,
       decoration: InputDecoration(
@@ -88,8 +94,27 @@ class _InputPageState extends State<InputPage> {
       ),
       onChanged: (value) => setState(() {
         _password = value;
-      })
-      ,
+      }),
+    );
+  }
+
+  Widget _createDate(BuildContext context) {
+    return TextField(
+      enableInteractiveSelection: false,
+      controller: _inputFieldDateController,
+      decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0)
+          ),
+          hintText: 'Fecha de nacimiento',
+          labelText: 'Fecha de nacimiento',
+          suffixIcon: Icon(Icons.perm_contact_calendar),
+          icon: Icon(Icons.calendar_today)
+      ),
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+        _selectDate(context);
+      },
     );
   }
 
@@ -100,6 +125,21 @@ class _InputPageState extends State<InputPage> {
     );
   }
 
+  _selectDate(BuildContext context) async {
+    DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: new DateTime.now(),
+        firstDate: new DateTime(2018),
+        lastDate: new DateTime(2025)
+    );
 
+    if( picked != null ){
+        setState(() {
+          _date = picked.toString();
+          _inputFieldDateController.text = _date;
+        });
+    }
+
+  }
 
 }
