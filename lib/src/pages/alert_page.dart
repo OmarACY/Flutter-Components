@@ -37,26 +37,12 @@ class AlertPage extends StatelessWidget {
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-<<<<<<< HEAD
-                Text('Este es el contenido de la alerta'),
-                FlutterLogo( size: 100.0,)
-=======
                 Text('Este es el contenido de la caja de la alerta'),
                 FlutterLogo( size: 100.0 )
->>>>>>> 599a3f0db60efe9530d4ad0cb5ea14aa8e6d6a96
               ],
             ),
             actions: <Widget>[
               FlatButton(
-<<<<<<< HEAD
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text('Cancelar')),
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('Ok'))
-=======
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text('Cancelar')
               ),
@@ -64,7 +50,6 @@ class AlertPage extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text('Ok')
               )
->>>>>>> 599a3f0db60efe9530d4ad0cb5ea14aa8e6d6a96
             ],
           );
         }
