@@ -12,6 +12,9 @@ class _InputPageState extends State<InputPage> {
   String _email = '';
   String _password = '';
   String _date = '';
+  String _selectedOption = 'Volar';
+
+  List<String> _powers = ['Volar', 'RayosX', 'Super fuerza', 'Flash'];
 
   TextEditingController _inputFieldDateController = new TextEditingController();
 
@@ -31,6 +34,8 @@ class _InputPageState extends State<InputPage> {
           _createPassword(),
           Divider(),
           _createDate(context),
+          Divider(),
+          _createDropdown(context),
           Divider(),
           _createPerson()
         ],
@@ -118,13 +123,6 @@ class _InputPageState extends State<InputPage> {
     );
   }
 
-  Widget _createPerson(){
-    return ListTile(
-      title: Text('Nombre es: $_name'),
-      subtitle: Text('Email: $_email'),
-    );
-  }
-
   /// References
   /// https://flutter.dev/docs/development/accessibility-and-localization/internationalization#specifying-supportedlocales
   /// https://api.flutter.dev/flutter/flutter_localizations/GlobalMaterialLocalizations-class.html
@@ -138,12 +136,49 @@ class _InputPageState extends State<InputPage> {
     );
 
     if( picked != null ){
-        setState(() {
-          _date = picked.toString();
-          _inputFieldDateController.text = _date;
-        });
+      setState(() {
+        _date = picked.toString();
+        _inputFieldDateController.text = _date;
+      });
     }
+  }
 
+  List<DropdownMenuItem<String>> getOptionsDropdown() {
+    List<DropdownMenuItem<String>> list = new List();
+    _powers.forEach( (power) {
+      list.add( DropdownMenuItem(
+        child: Text(power),
+        value: power,
+      ));
+    });
+
+    return list;
+  }
+
+  Widget _createDropdown(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Icon(Icons.select_all),
+        SizedBox(width: 30.0),
+        DropdownButton(
+        value: _selectedOption,
+        items: getOptionsDropdown(),
+        onChanged: (opt) {
+          setState(() {
+            _selectedOption = opt;
+          });
+        })
+      ],
+    );
+
+  }
+
+  Widget _createPerson(){
+    return ListTile(
+      title: Text('Nombre es: $_name'),
+      subtitle: Text('Email: $_email'),
+      trailing: Text(_selectedOption),
+    );
   }
 
 }
